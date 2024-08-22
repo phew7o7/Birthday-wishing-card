@@ -1,0 +1,360 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #ff6ec4, #7873f5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+    filter: brightness(0.3); /* Darkens the page initially */
+    transition: filter 1s ease; /* Smooth transition for brightness change */
+}
+
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('Media/Background.jpg'); /* Replace with your image path */
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    opacity: 0.2; /* Make the background image very dark initially */
+}
+
+
+.ribbon {
+    width: 8px; /* Adjust width if needed */
+    height: 200px; /* Adjust height if needed */
+    background: linear-gradient(to bottom, #ff6ec4, #7873f5); /* Colorful gradient */
+    border-radius: 5px;
+    position: absolute;
+    opacity: 1; /* Fully visible ribbons */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); /* Glow effect for better visibility */
+    z-index: 10; /* Ensure ribbons are on top */
+    pointer-events: auto; /* Ensure ribbons are clickable */
+}
+
+
+
+.ribbon1 { 
+    top: 10%; 
+    left: 20%; 
+    border-color: #ff6ec4; /* Pink */
+}
+.ribbon2 { 
+    top: 30%; 
+    left: 40%; 
+    border-color: #7873f5; /* Purple */
+}
+.ribbon3 { 
+    top: 50%; 
+    left: 60%; 
+    border-color: #ffcc00; /* Yellow */
+}
+/* Add positions and colors for the rest of your ribbons here */
+
+.ribbon.glowing {
+    opacity: 1;
+    box-shadow: 0px 0px 25px rgba(255, 255, 255, 1); /* Glow effect */
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.container *:not(.ribbon) {
+    visibility: hidden; /* Hide everything except ribbons initially */
+    transition: visibility 0s 1s; /* Delay making everything visible until after the transition */
+}
+
+body.normal {
+    filter: brightness(1); /* Restore normal brightness after clicking a ribbon */
+}
+
+body.normal .container * {
+    visibility: visible; /* Make everything visible when the brightness is restored */
+    transition: visibility 0s 0s; /* Make everything visible immediately when the brightness is restored */
+}
+
+.decorations {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.banner {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Pacifico', cursive;
+    font-size: 3em;
+    color: #ffcc00;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(to right, #ff6ec4, #7873f5);
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border: none;
+    animation: fadeIn 3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+.book {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 400px;
+    perspective: 1000px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    transition: opacity 1s ease;
+    z-index: 20; /* Higher z-index to make sure it's above ribbons */
+}
+
+.book.disappear {
+    opacity: 0; /* Fade out the book */
+    visibility: hidden; /* Hide the book after fading out */
+}
+
+.cover, .page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.6s;
+    transform: rotateY(180deg);
+}
+
+.cover {
+    background: #ff6ec4;
+    color: white;
+    transform: rotateY(0deg);
+    font-family: 'Pacifico', cursive;
+}
+
+.page h1 {
+    margin: 0;
+    font-size: 2em;
+    color: #ff6ec4;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.page p {
+    font-size: 1.2em;
+    color: #7873f5;
+}
+
+.page img, .page video {
+    width: 100px;
+    height: auto;
+    margin: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background: #ff6ec4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+button:hover {
+    background: #7873f5;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.pop-gif {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 80px;
+    height: auto;
+}
+
+@media (orientation: portrait) {
+    body {
+        transform: rotate(-90deg);
+        transform-origin: left top;
+        width: 100vh;
+        overflow: hidden;
+    }
+}
+
+.balloon {
+    position: absolute;
+    width: 50px;
+    height: 70px;
+    background: linear-gradient(to top, #ff6ec4, #7873f5);
+    border-radius: 50%;
+    animation: float 5s ease-in-out infinite;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.balloon::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    width: 2px;
+    height: 20px;
+    background: #ff6ec4;
+    transform: translateX(-50%);
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+.confetti-piece {
+    position: absolute;
+    width: 5px;
+    height: 10px;
+    background: #ffcc00;
+    animation: fall 1s forwards;
+}
+
+@keyframes fall {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(200px); opacity: 0; }
+}
+
+.star {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(to bottom, #ffcc00, #ff6ec4);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    cursor: pointer;
+    animation: twinkle 3s infinite ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10; 
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+}
+
+@keyframes starClick {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+
+/* Mobile styles */
+@media (max-width: 600px) {
+    /* Reduce book size on mobile */
+    .book {
+        width: 80%;
+        height: auto;
+        max-width: 500px; /* Max width to prevent it from being too large */
+        max-height: 70vh; /* Prevent it from taking too much height */
+    }
+    
+    /* Ensure ribbons are visible and properly sized */
+    .ribbon {
+        width: 40px;
+        height: 100px;
+        /* Adjust positions if needed */
+    }
+    
+    /* Adjust balloon size and position */
+    .balloon {
+        width: 40px;
+        height: 60px;
+    }
+
+    /* Adjust star size on mobile */
+    .star {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+/* Ensure decorations are appropriately sized and positioned */
+@media (min-width: 601px) {
+    .balloon {
+        width: 50px;
+        height: 70px;
+    }
+    
+    .star {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* Adjust book size for mobile devices */
+@media (max-width: 768px) {
+    .book {
+        width: 60vw; /* Adjust width relative to viewport width */
+        height: 50vh; /* Allow height to scale automatically */
+        max-height: 100vh; /* Limit the height to 80% of viewport height */
+        opacity: 0.9; /* Make the book slightly transparent */
+        z-index: 20; /* Maintain z-index for mobile */
+    }
+}

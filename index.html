@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Wishes</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300;400&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="decorations">
+            <!-- <div class="banner">Happy Birthday!</div> -->
+            <div class="star" style="top: 20%; left: 10%;"></div>
+            <div class="star" style="top: 30%; left: 20%;"></div>
+            <div class="star" style="top: 40%; left: 30%;"></div>
+            <div class="star" style="top: 50%; left: 40%;"></div>
+            <div class="star" style="top: 60%; left: 50%;"></div>
+            <div class="star" style="top: 70%; left: 60%;"></div>
+            <div class="star" style="top: 80%; left: 70%;"></div>
+            <div class="star" style="top: 90%; left: 80%;"></div>
+        </div>
+        <div class="ribbon ribbon1"></div>
+        <div class="ribbon ribbon2"></div>
+        <div class="ribbon ribbon3"></div>
+        <div class="ribbon ribbon4"></div>
+        <div class="ribbon ribbon5"></div>
+
+        <div class="book" id="book">
+            <div class="cover" id="cover">
+                <h1>Happy Birthday!</h1>
+                <button onclick="openBook()">Open Book</button>
+                <img src="Media/pop.gif" alt="Pop!" class="pop-gif">
+            </div>
+            <div class="page" id="page1">
+                <h1>A Special Message</h1>
+                <p>This is a special message I want to say.</p>
+                <button onclick="nextPage(2)">Next</button>
+            </div>
+            <div class="page" id="page2">
+                <h1>Memories</h1>
+                <img src="https://via.placeholder.com/150" alt="Memories">
+                <button onclick="nextPage(3)">Next</button>
+            </div>
+            <div class="page" id="page3">
+                <h1>Special Moments</h1>
+                <video controls>
+                    <source src="video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <button onclick="nextPage(4)">Next</button>
+            </div>
+            <div class="page" id="page4">
+                <h1>#END MESSAGE</h1>
+                <p>Wishing you a lifetime of happiness and joy!</p>
+                <button onclick="closeBook()">Close Book</button>
+            </div>
+        </div>
+    </div>
+    <audio id="popSound" src="pop.mp3"></audio>
+    <audio id="backgroundMusic" src="happy_birthday.mp3" loop></audio>
+    <script src="script.js"></script>
+</body>
+
+</html>
