@@ -12,7 +12,6 @@ body {
     transition: filter 1s ease; /* Smooth transition for brightness change */
 }
 
-
 body::before {
     content: '';
     position: absolute;
@@ -27,7 +26,6 @@ body::before {
     opacity: 0.2; /* Make the background image very dark initially */
 }
 
-
 .ribbon {
     width: 8px; /* Adjust width if needed */
     height: 200px; /* Adjust height if needed */
@@ -39,8 +37,6 @@ body::before {
     z-index: 10; /* Ensure ribbons are on top */
     pointer-events: auto; /* Ensure ribbons are clickable */
 }
-
-
 
 .ribbon1 { 
     top: 10%; 
@@ -57,6 +53,7 @@ body::before {
     left: 60%; 
     border-color: #ffcc00; /* Yellow */
 }
+
 /* Add positions and colors for the rest of your ribbons here */
 
 .ribbon.glowing {
@@ -209,8 +206,12 @@ button:hover {
     body {
         transform: rotate(-90deg);
         transform-origin: left top;
-        width: 100vh;
+        width: 100vh; /* Adjust width to viewport height */
+        height: 100vw; /* Adjust height to viewport width */
         overflow: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
     }
 }
 
@@ -280,81 +281,48 @@ button:hover {
 
 @keyframes twinkle {
     0%, 100% {
-        transform: scale(1);
         opacity: 1;
     }
     50% {
-        transform: scale(0.8);
         opacity: 0.5;
     }
 }
 
-@keyframes starClick {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    50% {
-        transform: scale(1.5);
-        opacity: 0.7;
-    }
-    100% {
-        transform: scale(0);
-        opacity: 0;
-    }
+.star.changed {
+    background: url('Media/ChangedStar.png') no-repeat center center; /* Replace with your image path */
+    background-size: cover;
+    animation: none; /* Stop twinkle animation when star is clicked */
 }
 
-
-/* Mobile styles */
-@media (max-width: 600px) {
-    /* Reduce book size on mobile */
-    .book {
-        width: 80%;
-        height: auto;
-        max-width: 500px; /* Max width to prevent it from being too large */
-        max-height: 70vh; /* Prevent it from taking too much height */
-    }
-    
-    /* Ensure ribbons are visible and properly sized */
-    .ribbon {
-        width: 40px;
-        height: 100px;
-        /* Adjust positions if needed */
-    }
-    
-    /* Adjust balloon size and position */
-    .balloon {
-        width: 40px;
-        height: 60px;
-    }
-
-    /* Adjust star size on mobile */
-    .star {
-        width: 25px;
-        height: 25px;
-    }
-}
-
-/* Ensure decorations are appropriately sized and positioned */
-@media (min-width: 601px) {
-    .balloon {
-        width: 50px;
-        height: 70px;
-    }
-    
-    .star {
-        width: 30px;
-        height: 30px;
-    }
-}
-
-/* Adjust book size for mobile devices */
 @media (max-width: 768px) {
+    .container {
+        width: 100vw; /* Full width of the viewport */
+        height: 100vh; /* Full height of the viewport */
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
     .book {
-        width: 60vw; /* Adjust width relative to viewport width */
-        height: 50vh; /* Allow height to scale automatically */
-        max-height: 100vh; /* Limit the height to 80% of viewport height */
-        opacity: 0.9; /* Make the book slightly transparent */
-        z-index: 20; /* Maintain z-index for mobile */
+        width: 80vw; /* Adjust book width to fit the viewport */
+        height: auto; /* Allow height to scale automatically */
+        max-width: 500px; /* Max width to prevent it from being too large */
+        max-height: 80vh; /* Limit height to 80% of viewport height */
+        margin: auto; /* Center the book */
+    }
+
+    .ribbon {
+        width: 8px; /* Adjust width if needed */
+        height: 150px; /* Adjust height for smaller screens */
+    }
+
+    .banner {
+        font-size: 2em; /* Adjust font size for smaller screens */
+        padding: 5px 10px; /* Adjust padding */
+    }
+
+    .balloon {
+        width: 40px; /* Adjust size for smaller screens */
+        height: 55px; /* Adjust size for smaller screens */
     }
 }
