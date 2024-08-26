@@ -34,15 +34,12 @@ function closeBook() {
     backgroundMusic.currentTime = 0;
 
     const book = document.querySelector('.book');
-    book.classList.add('disappear'); // Make the book transparent
+    book.classList.add('disappear');
 
-    // Wait for the disappearance animation to finish, then hide the book
     setTimeout(() => {
         book.style.display = 'none';
-    }, 500); // Adjust the timeout to match the length of your disappearance animation
+    }, 500); // Match this with the duration of the disappearance animation
 }
-
-
 
 function createBalloons(number) {
     const container = document.querySelector('.container');
@@ -56,7 +53,6 @@ function createBalloons(number) {
     }
 }
 
-
 function popBalloon(event) {
     const balloon = event.target;
     balloon.style.animation = 'pop 0.5s forwards';
@@ -67,16 +63,16 @@ function popBalloon(event) {
 
 function createConfetti(balloon) {
     const numConfetti = 20;
+    const container = document.querySelector('.container');
     for (let i = 0; i < numConfetti; i++) {
         const confetti = document.createElement('div');
         confetti.className = 'confetti-piece';
         confetti.style.left = `${balloon.offsetLeft + Math.random() * 50}px`;
         confetti.style.top = `${balloon.offsetTop + Math.random() * 50}px`;
         confetti.style.background = getRandomColor();
-        document.querySelector('.container').appendChild(confetti);
+        container.appendChild(confetti);
     }
 }
-
 
 function getRandomColor() {
     const colors = ['#ff6ec4', '#7873f5', '#ffcc00', '#00ccff', '#ff3366'];
@@ -90,86 +86,114 @@ function createStars(number) {
         star.className = 'star';
         star.style.left = `${Math.random() * 100}%`;
         star.style.top = `${Math.random() * 100}%`;
-        star.style.width = '30px'; // Star dimensions
-        star.style.height = '30px'; // Star dimensions
-        star.onclick = () => {
-            const randomImage = mediaImages[Math.floor(Math.random() * mediaImages.length)];
-            star.style.backgroundImage = `url(${randomImage})`;
-            star.style.backgroundSize = 'cover'; // Ensure image covers the star area
-            star.style.backgroundPosition = 'center';
-            star.style.backgroundRepeat = 'no-repeat';
-            star.style.clipPath = 'none'; // Remove star shape
-            star.style.border = 'none';
-            star.style.boxShadow = 'none';
-
-            if (randomImage === 'Media/AmongUS.jpg') {
-                const video = document.createElement('video');
-                video.src = 'Media/amongus.mp4'; // Path to your video file
-                video.autoplay = true;
-                video.style.position = 'absolute';
-                video.style.top = '50%';
-                video.style.left = '50%';
-                video.style.transform = 'translate(-50%, -50%)';
-                video.style.width = '80%'; // Adjust the width as needed
-                video.style.pointerEvents = 'none'; // Prevents interaction with the video
-            
-                document.body.appendChild(video);
-            
-                video.onended = () => {
-                    video.remove(); // Removes the video once it finishes playing
-                };
-            }
-            
-        };
+        star.style.width = '30px';
+        star.style.height = '30px';
+        star.onclick = () => handleStarClick(star);
         container.appendChild(star);
     }
 }
 
+function handleStarClick(star) {
+    const randomImage = mediaImages[Math.floor(Math.random() * mediaImages.length)];
+    star.style.backgroundImage = `url(${randomImage})`;
+    star.style.backgroundSize = 'cover';
+    star.style.backgroundPosition = 'center';
+    star.style.backgroundRepeat = 'no-repeat';
+    star.style.clipPath = 'none';
+    star.style.border = 'none';
+    star.style.boxShadow = 'none';
+
+    if (randomImage === 'Media/AmongUS.jpg') {
+        playAmongUsVideo();
+    }
+}
+
+function playAmongUsVideo() {
+    const video = document.createElement('video');
+    video.src = 'Media/amongus.mp4'; // Adjust path if necessary
+    video.autoplay = true;
+    video.style.position = 'absolute';
+    video.style.top = '50%';
+    video.style.left = '50%';
+    video.style.transform = 'translate(-50%, -50%)';
+    video.style.width = '80%';
+    video.style.pointerEvents = 'none';
+
+    document.body.appendChild(video);
+
+    video.onended = () => video.remove();
+}
+
 function placeRibbons() {
     const container = document.querySelector('.container');
-    const ribbonCount = window.innerWidth <= 768 ? 5 : 9; // Fewer ribbons for smaller screens
+    const ribbonCount = window.innerWidth <= 768 ? 5 : 9;
     for (let i = 1; i <= ribbonCount; i++) {
         const ribbon = document.createElement('div');
         ribbon.className = `ribbon ribbon${i}`;
         ribbon.style.left = `${Math.random() * 80 + 10}%`;
         ribbon.style.top = `${Math.random() * 80 + 10}%`;
-        ribbon.onclick = () => {
-            document.body.classList.add('normal'); // Restore normal brightness
-            const ribbons = document.querySelectorAll('.ribbon');
-            ribbons.forEach(ribbon => ribbon.classList.add('glowing')); // Make ribbons glow
-        };
+        ribbon.onclick = handleRibbonClick;
         container.appendChild(ribbon);
     }
 }
 
-
-
-
 function handleRibbonClick() {
-    // Make all ribbons glow
+    document.body.classList.add('normal'); // Restore normal brightness
     const ribbons = document.querySelectorAll('.ribbon');
-    ribbons.forEach(ribbon => {
-        ribbon.classList.add('glowing');
-    });
-
-    // Restore normal brightness
-    document.body.style.filter = 'brightness(1)';
+    ribbons.forEach(ribbon => ribbon.classList.add('glowing'));
 }
 
-// Initialize ribbons
-placeRibbons();
-
-
+// Initialize decorations
 function initializeDecorations() {
     const isMobile = window.innerWidth <= 768;
-    createBalloons(isMobile ? 10 : 30); // Fewer balloons for smaller screens
-    createRibbons(isMobile ? 10 : 20); // Adjust number of stars if necessary
+    createBalloons(isMobile ? 10 : 30); // Adjust number of balloons for smaller screens
+    createStars(20); // Number of stars
     placeRibbons();
 }
 
-createStars(20);
+function handleResize() {
+    const width = window.innerWidth;
+
+    if (width < 768) {
+        document.body.style.transform = 'none';
+        const container = document.querySelector('.container');
+        container.style.transform = 'none';
+        container.style.width = '100%';
+        container.style.height = '100%';
+    } else {
+        document.body.style.transform = 'none';
+    }
+}
+
+function handleOrientationChange() {
+    const isPortrait = window.matchMedia("(orientation: portrait)").matches;
+    
+    if (isPortrait) {
+        // Force landscape view by rotating
+        document.body.style.transform = 'rotate(90deg)';
+        document.body.style.transformOrigin = "center";
+        document.body.style.width = '100vh';
+        document.body.style.height = '100vw';
+        document.body.style.position = 'absolute';
+        document.body.style.top = '0';
+        document.body.style.left = '0';
+    } else {
+        // Reset for landscape orientation
+        document.body.style.transform = 'rotate(0deg)';
+        document.body.style.width = '100vw';
+        document.body.style.height = '100vh';
+        document.body.style.position = 'static';
+    }
+}
+
+// Initial check
+handleOrientationChange();
+
+// Add listener for orientation changes
+window.addEventListener('orientationchange', handleOrientationChange);
 
 
-// Initialize decorations on page load and resize
+// Initial setup
+window.addEventListener('resize', handleResize);
 initializeDecorations();
-window.addEventListener('resize', initializeDecorations);
+handleResize();
